@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/J-O-S-I-E/Film_Database_Project#readme",
   "dependencies": {
+    "dotenv": "^17.2.3",
     "express": "^5.1.0"
   },
   "devDependencies": {
