@@ -1,6 +1,12 @@
+require('./db') 
 const express = require('express')
 const app = express()
 const port = 3000
+const securityRouter = require('./routes/security')
+const cookieParser = require('cookie-parser')
+
+app.use(cookieParser())
+app.use('/security', securityRouter)
 
 app.get('/', (req, res) => {
   res.send('Hello World!')

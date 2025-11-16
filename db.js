@@ -8,6 +8,19 @@ const connection = mysql.createConnection({
   database: process.env.DB_NAME,
 })
 
+const createUserAccountTable = () => {
+  const query = `
+    CREATE TABLE IF NOT EXISTS UserAccount (
+      id INT AUTO_INCREMENT PRIMARY KEY,
+      username VARCHAR(50) UNIQUE NOT NULL,
+      email VARCHAR(255) UNIQUE NOT NULL,
+      password VARCHAR(255) NOT NULL,
+      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    )
+  `
+  connection.query(query, logResult('UserAccount'))
+}
+
 const createMediaTable = () => {
   const query = `
     CREATE TABLE IF NOT EXISTS Media (
@@ -61,10 +74,12 @@ connection.connect(err => {
     console.error('Error connecting to DB:', err.stack)
     return
   }
+  console.log("Initializing MySQL tables...")
+  createUserAccountTable()
   createMediaTable()
   createAccountMediaTable()
   createReviewTable()
-  console.log("MySQL initalized")
+  console.log("MySQL initialized")
 })
 
 module.exports = connection
